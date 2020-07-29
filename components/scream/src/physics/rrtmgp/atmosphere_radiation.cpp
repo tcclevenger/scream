@@ -18,7 +18,7 @@ namespace scream {
         rrtmgp::rrtmgp_initialize();
     }
     void RRTMGPRadiation::run(const Real dt) {
-        rrtmgp::rrtmgp_main(); 
+        //rrtmgp::rrtmgp_main(); 
     }
     void RRTMGPRadiation::finalize() {
         rrtmgp::rrtmgp_finalize();
