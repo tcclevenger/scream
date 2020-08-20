@@ -11,16 +11,6 @@ class ZMInputsInitializer : public FieldInitializer
 {
 public:
 
-
-  //struct GridOpts2{
-  //  std::string name;
-  //  FieldLayout field;
-  //  scream::units::Units unit;
-  //  bool isOut;
-  //};
-
-  //std::unordered_map<std:: string, GridOpts2> opt_map2;
-
   virtual ~ZMInputsInitializer () = default;
 
   // The name of the initializer
