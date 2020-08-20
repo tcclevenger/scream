@@ -6,10 +6,10 @@
 #include "share/grid/se_grid.hpp"
 #include "control/atmosphere_driver.hpp"
 
-#include "physics/p3/atmosphere_microphysics.hpp"
-#include "physics/p3/scream_p3_interface.hpp"
-#include "physics/p3/p3_functions_f90.hpp"
+#include "physics/zm/atmosphere_deepconvection.hpp"
+#include "physics/zm/scream_zm_interface.hpp"
 
+#include <iostream>
 namespace scream {
 
 // === A dummy physics grids for this test === //
@@ -23,14 +23,17 @@ public:
     // Nothing to do here
   }
   ~DummyPhysicsGrid () = default;
+
+protected:
 };
 
-TEST_CASE("p3-stand-alone", "") {
+TEST_CASE("zm-standalone", "") {
+  
   using namespace scream;
   using namespace scream::control;
-
-  constexpr int num_iters = 10;
+  constexpr int num_iters = 20;
   constexpr int num_cols  = 32;
+
   // Load ad parameter list
   std::string fname = "input.yaml";
   ParameterList ad_params("Atmosphere Driver");
@@ -38,8 +41,9 @@ TEST_CASE("p3-stand-alone", "") {
 
   // Need to register products in the factory *before* we create any AtmosphereProcessGroup,
   // which rely on factory for process creation. The initialize method of the AD does that.
+  // While we're at it, check that the case insensitive key of the factory works.
   auto& proc_factory = AtmosphereProcessFactory::instance();
-  proc_factory.register_product("P3",&create_atmosphere_process<P3Microphysics>);
+  proc_factory.register_product("ZM",&create_atmosphere_process<ZMDeepConvection>);
 
   // Need to register grids managers before we create the driver
   auto& gm_factory = GridsManagerFactory::instance();
@@ -63,17 +67,13 @@ TEST_CASE("p3-stand-alone", "") {
   ad.initialize(atm_comm,ad_params,time);
   for (int i=0; i<num_iters; ++i) {
     ad.run(300.0);
-  }
-
-  // TODO: get the field repo from the driver, and go get (one of)
-  //       the output(s) of P3, to check its numerical value (if possible)
+}
 
   // Finalize 
   ad.finalize();
   upgm.clean_up();
-  p3::P3GlobalForFortran::deinit();
 
-  // If we got here, we were able to run p3
+  // If we got here, we were able to run zm 
   REQUIRE(true);
 }
 
