@@ -573,9 +573,6 @@ subroutine zm_convr(lchnk   ,ncol    , &
    qtnd(:,:) = 0.0_r8
    heat(:,:) = 0.0_r8
    !real(r8), intent(out) :: mcon(pcols,pverp)
-   print *, 'pver is ', pver
-   print *, 'pverp is ', pverp
-   print *, 'pcols is ', pcols
 !   mcon( :, :(pver+1) ) =   !Meredith - This is the line that when uncommented causes issues.
    rliq(:ncol)   = 0.0_r8
 
