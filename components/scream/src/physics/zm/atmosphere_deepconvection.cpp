@@ -6,9 +6,6 @@ namespace scream
 
 {
 
-Real*** fracis;
-
-
 ZMDeepConvection::ZMDeepConvection (const Comm& comm,const ParameterList& /* params */)
   : m_zm_comm (comm)
 {
@@ -21,14 +18,11 @@ void ZMDeepConvection::set_grids(const std::shared_ptr<const GridsManager> grids
 {
   using namespace std;
 
-
   using namespace units;
   auto Q = kg/kg;
   auto nondim = m/m;
   Q.set_string("kg/kg");
 
-
- 
   constexpr int NVL = 72;  /* TODO THIS NEEDS TO BE CHANGED TO A CONFIGURABLE */
   constexpr int QSZ =  35;  /* TODO THIS NEEDS TO BE CHANGED TO A CONFIGURABLE */
   auto grid = grids_manager->get_grid("Physics");
@@ -36,27 +30,24 @@ void ZMDeepConvection::set_grids(const std::shared_ptr<const GridsManager> grids
   const int nc = num_dofs;
 
   using namespace ShortFieldTagsNames;
- 
 
   FieldLayout scalar3d_layout_mid { {COL,VL}, {nc,NVL} }; // Note that C++ and Fortran read array dimensions in reverse
   FieldLayout scalar3d_layout_int { {COL,VL}, {nc,NVL+1} }; // Note that C++ and Fortran read array dimensions in reverse
   FieldLayout vector3d_layout_mid{ {COL,CMP,VL}, {nc,QSZ,NVL} };
   FieldLayout tracers_layout { {COL,VAR,VL}, {nc,QSZ,NVL} };
   FieldLayout scalar2d_layout{ {COL}, {nc} };
-
  
   std::vector<FieldLayout> layout_opts = {scalar3d_layout_mid, scalar3d_layout_int,
 					vector3d_layout_mid, tracers_layout, scalar2d_layout};
  
   set_grid_opts();
-  for ( auto i = opt_map.begin(); i != opt_map.end(); ++i){
+  
+  for ( auto i = opt_map.begin(); i != opt_map.end(); ++i) {
     m_required_fields.emplace((i->second).name, layout_opts[((i->second).field_idx)], Q, grid->name());
     if ( (i->second).isOut == true ) {
       m_computed_fields.emplace((i->second).name, layout_opts[((i->second).field_idx)], Q, grid->name());
     }
   }
- 
-
   
 }
 
@@ -69,6 +60,7 @@ void ZMDeepConvection::initialize (const util::TimeStamp& t0)
   
   using strvec = std::vector<std::string>;
   const strvec& initable = zm_inputs;
+  
   for (const auto& name : initable) {
     const auto& f = m_zm_fields_in.at(name);
     const auto& track = f.get_header().get_tracking();
@@ -76,7 +68,7 @@ void ZMDeepConvection::initialize (const util::TimeStamp& t0)
       // Nobody claimed to init this field. ZMInputsInitializer will take care of it
       m_initializer->add_me_as_initializer(f);
     }
-   }
+  }
 }
 
 // =========================================================================================

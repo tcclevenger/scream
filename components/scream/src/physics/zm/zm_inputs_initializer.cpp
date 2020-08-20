@@ -26,8 +26,8 @@ vector<string> zm_inputs = {"limcnv_in", "no_deep_pbl_in","lchnk", "ncol", "t", 
 				"pgdall", "icwu", "ncnst", "fracis"};
 
 
-//Layout options are set as an int to be passed into the
-//GridOpts struct
+//Layout options are set as an int 
+//to be passed into the GridOpts struct
 const int SCALAR_3D_MID = 0;
 const int SCALAR_3D_INT = 1;
 const int VECTOR_3D_MID = 2;
@@ -46,8 +46,6 @@ struct GridOpts{
 };
 
 unordered_map<string, GridOpts> opt_map;
-
-
 
 //Initializes struct GridOpts fields
 void set_grid_opts_helper(GridOpts O, string n, bool out, const scream::units::Units* unit, int field_idx

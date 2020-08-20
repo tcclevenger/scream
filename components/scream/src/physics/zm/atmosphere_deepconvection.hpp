@@ -83,8 +83,6 @@ protected:
   std::shared_ptr<FieldInitializer>  m_initializer;
 
   ParameterList     m_zm_params;
- 
-
 
 }; // class ZMDeepConvection
 
