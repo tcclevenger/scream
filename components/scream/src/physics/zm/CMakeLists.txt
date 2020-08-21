@@ -33,5 +33,5 @@ target_include_directories(zm PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../common)
 target_include_directories(zm SYSTEM PUBLIC ${SCREAM_TPL_INCLUDE_DIRS} ${CIMEROOT}/src/share/include)
 set_target_properties(zm PROPERTIES
   Fortran_MODULE_DIRECTORY ${SCREAM_F90_MODULES})
-target_link_libraries(zm physics_common scream_share ${SCREAM_TPL_LIBRARIES})
+target_link_libraries(zm physics_share scream_share ${SCREAM_TPL_LIBRARIES})
 
