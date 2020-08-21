@@ -2,7 +2,7 @@
 #include "physics/p3/scream_p3_interface.hpp"
 #include "physics/p3/atmosphere_microphysics.hpp"
 #include "physics/p3/p3_inputs_initializer.hpp"
-
+#include <iostream>
 #include <array>
 
 namespace scream
