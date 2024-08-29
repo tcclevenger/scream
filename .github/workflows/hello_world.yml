@@ -1,6 +1,9 @@
 name: Hello World Workflow
 
 on:
+  push:
+    branches:
+      - testing_gh_actions
   pull_request:
     branches:
       - testing_gh_actions
