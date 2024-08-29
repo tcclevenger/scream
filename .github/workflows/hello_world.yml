@@ -1,10 +1,13 @@
 name: Hello World Workflow
 
 on: 
-  [pull_request, push]:
+  push:
     branches:
       - testing_gh_actions
-
+  pull_requests:
+    branches:
+      - testing_gh_actions
+    
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
