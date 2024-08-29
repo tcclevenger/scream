@@ -97,6 +97,7 @@ AtmosphereDriver::
 AtmosphereDriver(const ekat::Comm& atm_comm,
                  const ekat::ParameterList& params)
 {
+  printf("Constucting\n");
   set_comm(atm_comm);
   set_params(params);
 }
