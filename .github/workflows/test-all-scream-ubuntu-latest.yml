@@ -1,4 +1,4 @@
-name: Hello World Workflow
+name: test-all-scream
 
 on:
   push:
@@ -7,9 +7,11 @@ on:
   pull_request:
     branches:
       - testing_gh_actions
+    paths-ignore:
+      - 'components/eam/docs/**'
 
 jobs:
-  hello_world_job:
+  CI:
     runs-on: ubuntu-latest
 
     steps:
